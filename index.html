@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Juan Miguel Capurro · Retratos Realistas a Lápiz</title>
+<meta name="description" content="Retratos realistas a lápiz, 100% hechos a mano. Personas, parejas, familias y mascotas. Envíos a todo el país y al exterior. Bahía Blanca, Argentina.">
+<meta property="og:title" content="Juan Miguel Capurro · Retratos Realistas a Lápiz">
+<meta property="og:description" content="Obras únicas realizadas 100% a mano. Personas, parejas, familias, mascotas y regalos personalizados.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_AR">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%2317130F'/%3E%3Ctext x='50' y='66' font-family='Georgia,serif' font-size='40' fill='%23B8874A' text-anchor='middle'%3EJMC%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Fraunces:ital,wght@0,600;1,500;1,600&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+<style>
+/* ============ 1. VARIABLES Y RESET ============ */
+:root{
+  --cream:#F2E9DA;
+  --cream-soft:#FBF7EF;
+  --cream-deep:#E6D8BE;
+  --ink:#17130F;
+  --ink-soft:#2A231C;
+  --gold:#B8874A;
+  --gold-deep:#8C6733;
+  --gold-light:#D9B37E;
+  --text:#3B342B;
+  --text-muted:#6B6153;
+  --on-dark:#F5EEE0;
+  --radius:14px;
+  --radius-sm:8px;
+  --shadow:0 20px 45px -20px rgba(23,19,15,.35);
+  --ease:cubic-bezier(.4,0,.2,1);
+  --section-pad:clamp(4.5rem,9vw,7.5rem);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Poppins',sans-serif;
+  color:var(--text);
+  background:var(--cream);
+  line-height:1.7;
+  overflow-x:hidden;
+  font-weight:400;
+}
+img{max-width:100%;display:block;}
+a{text-decoration:none;color:inherit;}
+ul{list-style:none;}
+button{font-family:inherit;border:none;cursor:pointer;background:none;color:inherit;}
+h1,h2,h3{line-height:1.15;}
+.container{max-width:1220px;margin-inline:auto;padding-inline:clamp(1.25rem,5vw,3rem);}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important;}
+}
+
+/* ============ 2. TIPOGRAFÍA / UTILIDADES ============ */
+.script{font-family:'Alex Brush',cursive;}
+.text-gold{color:var(--gold);}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:.6rem;
+  font-size:.78rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--gold-deep);font-weight:600;margin-bottom:1rem;
+}
+.eyebrow::before{content:'';width:28px;height:1px;background:var(--gold-deep);}
+.section-title{
+  font-family:'Poppins',sans-serif;font-weight:800;text-transform:uppercase;
+  letter-spacing:-.01em;font-size:clamp(2rem,4vw,2.9rem);color:var(--ink);
+}
+.section-lede{max-width:52ch;color:var(--text-muted);font-size:1.05rem;margin-top:1rem;}
+.section-head{margin-bottom:clamp(2.5rem,5vw,4rem);}
+.section-head.center{text-align:center;}
+.section-head.center .section-lede{margin-inline:auto;}
+.section-head.center .eyebrow::before{display:none;}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:.6rem;
+  padding:.95rem 2.1rem;font-size:.82rem;font-weight:600;
+  letter-spacing:.12em;text-transform:uppercase;border-radius:var(--radius-sm);
+  transition:all .35s var(--ease);white-space:nowrap;
+}
+.btn-primary{background:var(--ink);color:var(--on-dark);}
+.btn-primary:hover{background:var(--gold-deep);color:var(--ink);transform:translateY(-2px);}
+.btn-outline{border:1.5px solid var(--ink);color:var(--ink);}
+.btn-outline:hover{background:var(--ink);color:var(--on-dark);}
+.btn-gold{background:var(--gold);color:var(--ink);}
+.btn-gold:hover{background:var(--gold-deep);color:var(--on-dark);}
+
+/* trazo dibujado a mano (elemento firma) */
+.hand-stroke path{
+  stroke-dasharray:100;stroke-dashoffset:100;
+  transition:stroke-dashoffset 1.6s var(--ease);
+}
+.hand-stroke path.draw{stroke-dashoffset:0;}
+
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .7s var(--ease),transform .7s var(--ease);}
+.reveal.is-visible{opacity:1;transform:translateY(0);}
+
+/* ============ 3. HEADER / NAV ============ */
+.site-header{
+  position:fixed;top:0;left:0;width:100%;z-index:500;
+  background:var(--cream-soft);
+  border-bottom:1px solid transparent;
+  transition:border-color .3s var(--ease),box-shadow .3s var(--ease);
+}
+.site-header.scrolled{border-color:rgba(23,19,15,.08);box-shadow:0 8px 30px -20px rgba(23,19,15,.3);}
+.nav{display:flex;align-items:center;justify-content:space-between;padding-block:1.1rem;}
+.logo{font-family:'Alex Brush',cursive;font-size:1.9rem;color:var(--ink);line-height:1;}
+.nav-links{display:flex;align-items:center;gap:2.2rem;}
+.nav-links a{
+  font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;font-weight:500;
+  color:var(--text);position:relative;padding-bottom:4px;
+}
+.nav-links a::after{
+  content:'';position:absolute;left:0;bottom:0;height:1px;width:0;
+  background:var(--gold-deep);transition:width .3s var(--ease);
+}
+.nav-links a:hover::after{width:100%;}
+.nav-cta{border:1.5px solid var(--ink);padding:.55rem 1.3rem;border-radius:var(--radius-sm);}
+.nav-cta::after{display:none;}
+.nav-cta:hover{background:var(--ink);color:var(--on-dark);}
+.nav-toggle{display:none;width:26px;height:20px;position:relative;z-index:600;}
+.nav-toggle span{position:absolute;left:0;width:100%;height:2px;background:var(--ink);transition:all .3s var(--ease);}
+.nav-toggle span:nth-child(1){top:0;}
+.nav-toggle span:nth-child(2){top:9px;}
+.nav-toggle span:nth-child(3){top:18px;}
+.nav-toggle.active span:nth-child(1){top:9px;transform:rotate(45deg);}
+.nav-toggle.active span:nth-child(2){opacity:0;}
+.nav-toggle.active span:nth-child(3){top:9px;transform:rotate(-45deg);}
+
+/* ============ 4. HERO ============ */
+.hero{padding-top:calc(5.5rem + var(--section-pad));padding-bottom:var(--section-pad);position:relative;}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(2rem,5vw,4rem);align-items:center;}
+.hero-title{font-size:clamp(2.6rem,5.6vw,4.5rem);}
+.hero-subtitle{max-width:46ch;color:var(--text-muted);font-size:1.08rem;margin-top:1.4rem;}
+.hero-actions{display:flex;flex-wrap:wrap;gap:1rem;margin-top:2.3rem;}
+.hero-badges{display:flex;flex-wrap:wrap;gap:1.8rem;margin-top:2.6rem;}
+.hero-badge{display:flex;align-items:center;gap:.6rem;font-size:.82rem;color:var(--text-muted);}
+.hero-badge svg{width:18px;height:18px;color:var(--gold-deep);flex-shrink:0;}
+
+.hero-visual{position:relative;z-index:1;}
+.hero-frame{
+  aspect-ratio:4/5;min-height:320px;border-radius:var(--radius);overflow:hidden;position:relative;z-index:2;
+  background:
+    radial-gradient(circle at 28% 22%,rgba(255,255,255,.35),transparent 45%),
+    linear-gradient(150deg,#DCD2BC 0%,#C9BC9E 45%,#DED2B8 100%);
+  box-shadow:var(--shadow);
+  border:1px solid rgba(23,19,15,.1);
+}
+.hero-frame .portrait-icon{
+  position:absolute;inset:0;margin:auto;width:52%;height:52%;top:8%;
+  color:var(--ink);opacity:.16;
+}
+.hero-frame .frame-tag{
+  position:absolute;left:1.4rem;bottom:1.4rem;background:rgba(23,19,15,.82);
+  color:var(--on-dark);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;
+  padding:.55rem 1rem;border-radius:4px;
+}
+.hero-ring{position:absolute;inset:-7%;pointer-events:none;color:var(--gold);z-index:1;}
+.hero-ring path{fill:none;stroke-width:1.6;}
+
+/* ============ 5. TRUST STRIP ============ */
+.trust-strip{border-top:1px solid rgba(23,19,15,.1);border-bottom:1px solid rgba(23,19,15,.1);}
+.trust-grid{display:grid;grid-template-columns:repeat(4,1fr);}
+.trust-item{
+  display:flex;align-items:center;gap:.9rem;padding:1.8rem 1.6rem;
+  border-left:1px solid rgba(23,19,15,.1);
+}
+.trust-item:first-child{border-left:none;}
+.trust-item svg{width:26px;height:26px;color:var(--gold-deep);flex-shrink:0;}
+.trust-item strong{display:block;font-size:.86rem;font-weight:600;color:var(--ink);}
+.trust-item span{font-size:.78rem;color:var(--text-muted);}
+
+/* ============ 6. SOBRE MÍ ============ */
+.about{padding-block:var(--section-pad);}
+.about-grid{display:grid;grid-template-columns:1fr auto;gap:clamp(2rem,5vw,4.5rem);align-items:start;}
+.about-text p{margin-bottom:1.3rem;color:var(--text);max-width:62ch;}
+.about-text p:last-of-type{margin-bottom:0;}
+.about-sign{margin-top:2rem;font-family:'Alex Brush',cursive;font-size:2.1rem;color:var(--gold-deep);}
+.about-side{
+  writing-mode:vertical-rl;text-orientation:mixed;transform:rotate(180deg);
+  display:flex;align-items:center;gap:1rem;justify-self:end;
+  border-left:1px solid rgba(23,19,15,.15);padding-left:1.4rem;height:100%;
+}
+.about-side span{font-size:.78rem;letter-spacing:.24em;text-transform:uppercase;color:var(--text-muted);white-space:nowrap;}
+
+/* ============ 7. SERVICIOS ============ */
+.services{padding-block:var(--section-pad);background:var(--cream-deep);}
+.services-row{display:flex;flex-wrap:wrap;gap:clamp(1.5rem,4vw,2.5rem);justify-content:space-between;}
+.service-item{flex:1 1 160px;text-align:center;}
+.service-icon{
+  width:66px;height:66px;border-radius:50%;background:var(--ink);
+  display:flex;align-items:center;justify-content:center;margin-inline:auto;
+  border:1.5px solid var(--gold);margin-bottom:1.1rem;
+}
+.service-icon svg{width:26px;height:26px;color:var(--cream-soft);}
+.service-title{font-size:.95rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--ink);margin-bottom:.4rem;}
+.service-desc{font-size:.85rem;color:var(--text-muted);max-width:22ch;margin-inline:auto;}
+
+/* ============ 8. CALLOUT ============ */
+.callout{background:var(--ink);color:var(--on-dark);padding-block:clamp(4rem,8vw,6rem);text-align:center;}
+.callout-text{
+  font-family:'Fraunces',serif;font-style:italic;font-weight:500;
+  font-size:clamp(1.5rem,3.4vw,2.4rem);max-width:20ch;margin-inline:auto;line-height:1.4;
+}
+.callout-text .underline-wrap{position:relative;display:inline-block;color:var(--gold-light);font-weight:600;}
+.callout-underline{position:absolute;left:0;bottom:-.35rem;width:100%;height:14px;color:var(--gold);}
+.callout-underline path{fill:none;stroke-width:2.4;}
+.callout-sub{margin-top:1.6rem;font-size:.85rem;letter-spacing:.08em;color:rgba(245,238,224,.6);text-transform:uppercase;}
+
+/* ============ 9. GALERÍA ============ */
+.gallery{padding-block:var(--section-pad);}
+.gallery-filters{display:flex;flex-wrap:wrap;gap:.7rem;justify-content:center;margin-bottom:3rem;}
+.filter-btn{
+  padding:.55rem 1.35rem;border:1.5px solid rgba(23,19,15,.35);border-radius:999px;
+  font-size:.76rem;letter-spacing:.08em;text-transform:uppercase;font-weight:500;
+  transition:all .3s var(--ease);color:var(--text);
+}
+.filter-btn.active,.filter-btn:hover{background:var(--ink);border-color:var(--ink);color:var(--on-dark);}
+.gallery-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  grid-auto-flow:dense;gap:1.6rem;
+}
+.gallery-item.featured{grid-column:span 2;grid-row:span 2;}
+.gallery-thumb{
+  position:relative;border-radius:var(--radius);overflow:hidden;cursor:pointer;
+  aspect-ratio:4/5;background:var(--cream-deep);
+  background-size:cover;background-position:center;
+}
+.gallery-item.featured .gallery-thumb{aspect-ratio:auto;height:100%;min-height:100%;}
+.gallery-thumb::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 30% 25%,rgba(255,255,255,.3),transparent 50%),
+    linear-gradient(150deg,#DCD2BC 0%,#C4B896 55%,#DED2B8 100%);
+}
+.gallery-thumb .portrait-icon{position:absolute;inset:0;margin:auto;width:38%;height:38%;color:var(--ink);opacity:.15;}
+.gallery-thumb::after{
+  content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(23,19,15,.55),transparent 55%);
+  opacity:0;transition:opacity .35s var(--ease);
+}
+.gallery-item:hover .gallery-thumb::after{opacity:1;}
+.gallery-item:hover .gallery-thumb{transform:scale(1.015);}
+.gallery-thumb{transition:transform .5s var(--ease);}
+.gallery-cap{
+  position:absolute;left:1.1rem;right:1.1rem;bottom:1rem;color:#fff;
+  opacity:0;transform:translateY(8px);transition:all .35s var(--ease);
+}
+.gallery-item:hover .gallery-cap{opacity:1;transform:translateY(0);}
+.gallery-cap .tag{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-light);display:block;margin-bottom:.2rem;}
+.gallery-cap .name{font-size:1rem;font-weight:600;}
+
+/* ============ 10. PROCESO ============ */
+.process{padding-block:var(--section-pad);background:var(--cream-deep);}
+.process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;counter-reset:step;}
+.process-step{position:relative;padding-top:.5rem;}
+.step-number{
+  font-family:'Fraunces',serif;font-style:italic;font-weight:600;
+  font-size:2.6rem;color:var(--gold);opacity:.75;line-height:1;margin-bottom:.8rem;display:block;
+}
+.step-title{font-size:1rem;font-weight:600;text-transform:uppercase;letter-spacing:.03em;color:var(--ink);margin-bottom:.5rem;}
+.step-desc{font-size:.88rem;color:var(--text-muted);}
+.process-step:not(:last-child)::after{
+  content:'';position:absolute;top:1.6rem;right:-1rem;width:.6rem;height:.6rem;
+  border-top:1.5px solid var(--gold-deep);border-right:1.5px solid var(--gold-deep);transform:rotate(45deg);
+}
+
+/* ============ 11. TIENDA ============ */
+.shop{padding-block:var(--section-pad);}
+.shop-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:0;border:1px solid rgba(23,19,15,.12);border-radius:var(--radius);overflow:hidden;}
+.shop-card{padding:2.4rem 2rem;border-left:1px solid rgba(23,19,15,.12);position:relative;}
+.shop-card:first-child{border-left:none;}
+.shop-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:var(--gold);}
+.shop-tag{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-deep);font-weight:600;}
+.shop-title{font-size:1.15rem;font-weight:700;color:var(--ink);margin:.6rem 0 .7rem;}
+.shop-desc{font-size:.87rem;color:var(--text-muted);margin-bottom:1.2rem;min-height:3.4em;}
+.shop-meta{font-size:.78rem;color:var(--text-muted);margin-bottom:1.4rem;display:flex;gap:.5rem;align-items:center;}
+.shop-meta svg{width:14px;height:14px;color:var(--gold-deep);}
+.shop-cta{font-size:.78rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);display:inline-flex;align-items:center;gap:.5rem;border-bottom:1.5px solid var(--gold);padding-bottom:.2rem;}
+.shop-cta svg{width:14px;height:14px;transition:transform .3s var(--ease);}
+.shop-card:hover .shop-cta svg{transform:translateX(4px);}
+.shop-note{text-align:center;margin-top:2.5rem;font-size:.85rem;color:var(--text-muted);}
+
+/* ============ 12. CTA / CONTACTO ============ */
+.contact-cta{background:var(--ink);color:var(--on-dark);padding-block:clamp(4.5rem,8vw,6.5rem);text-align:center;position:relative;overflow:hidden;}
+.cta-title{font-size:clamp(2rem,4.4vw,3.2rem);font-weight:800;text-transform:uppercase;}
+.cta-sub{max-width:44ch;margin:1.2rem auto 2.2rem;color:rgba(245,238,224,.72);}
+
+/* ============ 13. FOOTER ============ */
+.site-footer{background:var(--ink-soft);color:var(--on-dark);padding-top:var(--section-pad);}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:3rem;padding-bottom:3rem;border-bottom:1px solid rgba(245,238,224,.12);}
+.footer-brand .logo{color:var(--on-dark);}
+.footer-tagline{margin-top:1rem;color:rgba(245,238,224,.62);font-size:.9rem;max-width:32ch;}
+.footer-col h4{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-light);margin-bottom:1.1rem;}
+.footer-col ul{display:flex;flex-direction:column;gap:.7rem;}
+.footer-col a{font-size:.9rem;color:rgba(245,238,224,.75);transition:color .3s var(--ease);}
+.footer-col a:hover{color:var(--gold-light);}
+.footer-col li{display:flex;align-items:center;gap:.6rem;font-size:.9rem;color:rgba(245,238,224,.75);}
+.footer-col li svg{width:16px;height:16px;color:var(--gold-light);flex-shrink:0;}
+.footer-bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;padding-block:1.6rem;font-size:.78rem;color:rgba(245,238,224,.5);}
+
+/* ============ 14. LIGHTBOX ============ */
+.lightbox{
+  position:fixed;inset:0;background:rgba(23,19,15,.94);z-index:900;
+  display:flex;align-items:center;justify-content:center;padding:2rem;
+  opacity:0;visibility:hidden;transition:opacity .35s var(--ease);
+}
+.lightbox.open{opacity:1;visibility:visible;}
+.lightbox-content{max-width:560px;width:100%;}
+.lightbox-thumb{
+  aspect-ratio:4/5;border-radius:var(--radius);position:relative;overflow:hidden;
+  background:radial-gradient(circle at 30% 25%,rgba(255,255,255,.3),transparent 50%),linear-gradient(150deg,#DCD2BC 0%,#C4B896 55%,#DED2B8 100%);
+  background-size:cover;background-position:center;
+}
+.lightbox-thumb .portrait-icon{position:absolute;inset:0;margin:auto;width:34%;height:34%;color:var(--ink);opacity:.15;}
+.lightbox-info{margin-top:1.4rem;text-align:center;color:var(--on-dark);}
+.lightbox-info .tag{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-light);}
+.lightbox-info .name{font-size:1.2rem;font-weight:600;margin-top:.3rem;}
+.lightbox-close,.lightbox-prev,.lightbox-next{
+  position:fixed;width:44px;height:44px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;color:var(--on-dark);
+  border:1px solid rgba(245,238,224,.3);transition:all .3s var(--ease);
+}
+.lightbox-close:hover,.lightbox-prev:hover,.lightbox-next:hover{background:var(--gold);color:var(--ink);border-color:var(--gold);}
+.lightbox-close{top:2rem;right:2rem;}
+.lightbox-close svg{width:18px;height:18px;}
+.lightbox-prev{left:2rem;top:50%;transform:translateY(-50%);}
+.lightbox-next{right:2rem;top:50%;transform:translateY(-50%);}
+.lightbox-prev svg,.lightbox-next svg{width:20px;height:20px;}
+
+/* ============ 15. BOTÓN FLOTANTE ============ */
+.float-ig{
+  position:fixed;right:1.6rem;bottom:1.6rem;width:56px;height:56px;border-radius:50%;
+  background:var(--ink);color:var(--on-dark);display:flex;align-items:center;justify-content:center;
+  box-shadow:var(--shadow);z-index:400;opacity:0;transform:translateY(12px);pointer-events:none;
+  transition:all .4s var(--ease);border:1.5px solid var(--gold);
+}
+.float-ig.show{opacity:1;transform:translateY(0);pointer-events:auto;}
+.float-ig:hover{background:var(--gold);color:var(--ink);}
+.float-ig svg{width:24px;height:24px;}
+
+/* ============ 16. RESPONSIVE ============ */
+@media (max-width:980px){
+  .nav-links{
+    position:fixed;inset:0 0 0 auto;width:min(360px,80vw);background:var(--ink);
+    flex-direction:column;justify-content:center;align-items:flex-start;gap:1.8rem;
+    padding:2rem 2.4rem;transform:translateX(100%);transition:transform .4s var(--ease);
+    z-index:550;box-shadow:-20px 0 45px -20px rgba(23,19,15,.4);
+  }
+  .nav-links.open{transform:translateX(0);}
+  .nav-links a{color:var(--on-dark);font-size:1rem;}
+  .nav-cta{border-color:var(--gold);color:var(--gold-light);}
+  .nav-toggle{display:block;}
+  .hero-grid{grid-template-columns:1fr;}
+  .hero-visual{order:-1;max-width:340px;margin-inline:auto;}
+  .trust-grid{grid-template-columns:repeat(2,1fr);}
+  .trust-item:nth-child(3){border-left:none;}
+  .trust-item:nth-child(3),.trust-item:nth-child(4){border-top:1px solid rgba(23,19,15,.1);}
+  .about-grid{grid-template-columns:1fr;}
+  .about-side{writing-mode:horizontal-tb;transform:none;flex-direction:row;border-left:none;border-top:1px solid rgba(23,19,15,.15);padding:1.4rem 0 0;margin-top:1rem;}
+  .process-grid{grid-template-columns:repeat(2,1fr);row-gap:2.6rem;}
+  .process-step:nth-child(2)::after{display:none;}
+  .footer-grid{grid-template-columns:1fr 1fr;}
+  .footer-brand{grid-column:span 2;}
+}
+@media (max-width:640px){
+  .gallery-item.featured{grid-column:span 1;grid-row:span 1;}
+  .gallery-item.featured .gallery-thumb{aspect-ratio:4/5;}
+  .services-row{gap:2rem 1rem;}
+  .service-item{flex:1 1 40%;}
+  .shop-grid{grid-template-columns:1fr;}
+  .shop-card{border-left:none;border-top:1px solid rgba(23,19,15,.12);}
+  .shop-card:first-child{border-top:none;}
+  .process-grid{grid-template-columns:1fr;}
+  .process-step::after{display:none;}
+  .footer-grid{grid-template-columns:1fr;}
+  .footer-brand{grid-column:span 1;}
+  .lightbox-prev,.lightbox-next{width:38px;height:38px;}
+  .lightbox-prev{left:.6rem;}
+  .lightbox-next{right:.6rem;}
+  .lightbox-close{top:1rem;right:1rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header class="site-header" id="siteHeader">
+  <div class="container nav">
+    <a href="#inicio" class="logo">Juan Miguel Capurro</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#inicio">Inicio</a></li>
+      <li><a href="#sobre-mi">Sobre Mí</a></li>
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#galeria">Galería</a></li>
+      <li><a href="#tienda">Tienda</a></li>
+      <li><a href="#contacto" class="nav-cta">Contacto</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main>
+<!-- ============ HERO ============ -->
+<section class="hero" id="inicio">
+  <div class="container hero-grid">
+    <div class="hero-content">
+      <p class="eyebrow">Dibujante Realista · Bahía Blanca, Argentina</p>
+      <h1 class="hero-title">Retratos Realistas<br><span class="text-gold">a Lápiz</span></h1>
+      <p class="hero-subtitle">Obras únicas, realizadas 100% a mano, con paciencia, dedicación y pasión. Para personas, parejas, familias, mascotas y regalos que quedan para siempre.</p>
+      <div class="hero-actions">
+        <a href="#galeria" class="btn btn-primary">Ver Galería</a>
+        <a href="#contacto" class="btn btn-outline">Encargar mi Retrato</a>
+      </div>
+      <div class="hero-badges">
+        <span class="hero-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 3.5l6 6L7 23H1v-6L14.5 3.5z"/><path d="M12.5 5.5l6 6"/></svg>
+          100% Hecho a Mano
+        </span>
+        <span class="hero-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2c2.8 2.8 4.2 6.3 4.2 10s-1.4 7.2-4.2 10c-2.8-2.8-4.2-6.3-4.2-10S9.2 4.8 12 2z"/></svg>
+          Envíos a Todo el País y al Exterior
+        </span>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <svg class="hero-ring hand-stroke" viewBox="0 0 200 200" preserveAspectRatio="none">
+        <path pathLength="100" d="M18,16 C58,2 145,-1 180,22 C199,50 198,152 176,180 C148,199 52,198 20,178 C1,150 1,44 18,16 Z"/>
+      </svg>
+      <div class="hero-frame">
+        <svg class="portrait-icon" viewBox="0 0 120 140" fill="none" stroke="currentColor" stroke-width="1.1">
+          <path d="M60 18c12 0 21 10 21 24 0 10-5 18-12 22 16 6 27 20 29 42H22c2-22 13-36 29-42-7-4-12-12-12-22 0-14 9-24 21-24z"/>
+        </svg>
+        <span class="frame-tag">Obra Original</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TRUST STRIP ============ -->
+<section class="trust-strip">
+  <div class="container trust-grid">
+    <div class="trust-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 3.5l6 6L7 23H1v-6L14.5 3.5z"/><path d="M12.5 5.5l6 6"/></svg>
+      <div><strong>100% a Mano</strong><span>Sin plantillas ni impresiones</span></div>
+    </div>
+    <div class="trust-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l5 5v15H6V2z"/><path d="M15 2v5h5"/><path d="M9 13h6M9 17h6M9 9h2"/></svg>
+      <div><strong>Tamaños A4 · A3</strong><span>O superiores a pedido</span></div>
+    </div>
+    <div class="trust-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2c2.8 2.8 4.2 6.3 4.2 10s-1.4 7.2-4.2 10c-2.8-2.8-4.2-6.3-4.2-10S9.2 4.8 12 2z"/></svg>
+      <div><strong>Envíos</strong><span>Nacionales e internacionales</span></div>
+    </div>
+    <div class="trust-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 4.9 5.4.8-3.9 3.8.9 5.4L12 14.3 7.2 16.9l.9-5.4-3.9-3.8 5.4-.8L12 2z"/></svg>
+      <div><strong>Piezas Únicas</strong><span>Cada retrato, irrepetible</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SOBRE MÍ ============ -->
+<section class="about" id="sobre-mi">
+  <div class="container about-grid">
+    <div class="about-text reveal">
+      <p class="eyebrow">Sobre Mí</p>
+      <h2 class="section-title" style="margin-bottom:1.6rem;">El Arte de Capturar<br>un Momento, a Lápiz</h2>
+      <p>Soy Juan Miguel Capurro, dibujante realista de Bahía Blanca, Argentina. Desde hace años transformo fotografías en retratos únicos, trabajando cada detalle a mano, con lápiz sobre papel.</p>
+      <p>Creo que un buen retrato no solo se parece a la persona: cuenta su historia, su mirada, su esencia. Por eso trato cada encargo como una pieza irrepetible, pensada para acompañar para siempre a quien la recibe.</p>
+      <p>Trabajo sobre papel de calidad, en tamaños A4 y A3 (o superiores a pedido), y envío cada obra cuidadosamente embalada a cualquier punto del país o del exterior.</p>
+      <p class="about-sign script">Juan Miguel Capurro</p>
+    </div>
+    <div class="about-side">
+      <span>Bahía Blanca · Argentina</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVICIOS ============ -->
+<section class="services" id="servicios">
+  <div class="container">
+    <div class="section-head center">
+      <p class="eyebrow">Qué Dibujo</p>
+      <h2 class="section-title">Un Retrato para Cada Historia</h2>
+    </div>
+    <div class="services-row">
+      <div class="service-item reveal">
+        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg></div>
+        <h3 class="service-title">Personas</h3>
+        <p class="service-desc">Retratos individuales que capturan la esencia de cada rostro.</p>
+      </div>
+      <div class="service-item reveal">
+        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7.5-4.6-10-9.3C.5 8.3 2.3 4.5 6 4c2.2-.3 4 .9 6 3 2-2.1 3.8-3.3 6-3 3.7.5 5.5 4.3 4 7.7C19.5 16.4 12 21 12 21z"/></svg></div>
+        <h3 class="service-title">Parejas</h3>
+        <p class="service-desc">Un momento compartido, convertido en obra para toda la vida.</p>
+      </div>
+      <div class="service-item reveal">
+        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="7" r="3"/><circle cx="17" cy="8" r="2.4"/><path d="M2 21c0-3.9 2.7-7 6-7s6 3.1 6 7"/><path d="M14.5 14.3c2.6.3 4.5 2.9 4.5 6.2"/></svg></div>
+        <h3 class="service-title">Familias</h3>
+        <p class="service-desc">Retratos grupales que reúnen generaciones en una sola pieza.</p>
+      </div>
+      <div class="service-item reveal">
+        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="7" cy="13" rx="2.2" ry="2.8"/><ellipse cx="12" cy="10.5" rx="2.2" ry="2.8"/><ellipse cx="17" cy="13" rx="2.2" ry="2.8"/><path d="M12 15c-3.3 0-6 2-6 4.5 0 1.4 1.4 2.5 3 2 1-.3 1.9-.5 3-.5s2 .2 3 .5c1.6.5 3-.6 3-2 0-2.5-2.7-4.5-6-4.5z"/></svg></div>
+        <h3 class="service-title">Mascotas</h3>
+        <p class="service-desc">Porque también son familia: fieles compañeros en cada trazo.</p>
+      </div>
+      <div class="service-item reveal">
+        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="9" width="18" height="4"/><rect x="4" y="13" width="16" height="8"/><path d="M12 9v12M12 9c-1.8 0-3.2-1.4-3.2-3.1S10.2 3 12 4.5c1.8-1.5 3.2-.7 3.2 1.4S13.8 9 12 9z"/></svg></div>
+        <h3 class="service-title">Regalos</h3>
+        <p class="service-desc">El regalo perfecto para una fecha especial, único e irrepetible.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CALLOUT ============ -->
+<section class="callout">
+  <div class="container">
+    <p class="callout-text reveal">Cada retrato es una obra <span class="underline-wrap">original<svg class="callout-underline hand-stroke" viewBox="0 0 200 20" preserveAspectRatio="none"><path pathLength="100" d="M2,12 C40,2 70,18 100,10 C130,2 160,16 198,8"/></svg></span>, realizada completamente a mano.</p>
+    <p class="callout-sub">Sin impresiones · Sin copias · Solo lápiz y papel</p>
+  </div>
+</section>
+
+<!-- ============ GALERÍA ============ -->
+<section class="gallery" id="galeria">
+  <div class="container">
+    <div class="section-head center">
+      <p class="eyebrow">Mi Trabajo</p>
+      <h2 class="section-title">Galería de Retratos</h2>
+      <p class="section-lede">Una selección de piezas realizadas a pedido. Reemplazá cada placeholder por la foto real de tu obra — instrucciones al final de esta página.</p>
+    </div>
+    <div class="gallery-filters">
+      <button class="filter-btn active" data-filter="todos">Todos</button>
+      <button class="filter-btn" data-filter="personas">Personas</button>
+      <button class="filter-btn" data-filter="parejas">Parejas</button>
+      <button class="filter-btn" data-filter="familias">Familias</button>
+      <button class="filter-btn" data-filter="mascotas">Mascotas</button>
+      <button class="filter-btn" data-filter="regalos">Regalos</button>
+    </div>
+    <div class="gallery-grid" id="galleryGrid">
+      <!-- Cada .gallery-item: reemplazar el div.gallery-thumb por <img class="gallery-thumb" src="imagenes/retrato-XX.jpg" alt="..."> cuando tengas las fotos reales -->
+      <figure class="gallery-item featured" data-category="familias">
+        <div class="gallery-thumb"><svg class="portrait-icon" viewBox="0 0 120 140" fill="none" stroke="currentColor" stroke-width="1.1"><path d="M60 18c12 0 21 10 21 24 0 10-5 18-12 22 16 6 27 20 29 42H22c2-22 13-36 29-42-7-4-12-12-12-22 0-14 9-24 21-24z"/></svg></div>
+        <figcaption class="gallery-cap"><span class="tag">Familias</span><span class="name">Retrato Familiar Multigeneracional</span></figcaption>
+      </figure>
+      <figure class="gallery-item" data-category="personas">
+        <div class="gallery-thumb"><svg class="portrait-icon" viewBox="0 0 120 140" fill="none" stroke="currentColor" stroke-width="1.1"><path d="M60 18c12 0 21 10 21 24 0 10-5 18-12 22 16 6 27 20 29 42H22c2-22 13-36 29-42-7-4-12-12-12-22 0-14 9-24 21-24z"/></svg></div>
+        <figcaption class="gallery-cap"><span class="tag">Personas</span><span class="name">Retrato Individual Realista</span></figcaption>
+      </figure>
+      <figure class="gallery-item" data-category="parejas">
+        <div class="gallery-thumb"><svg class="portrait-icon" viewBox="0 0 120 140" fill="none" stroke="currentColor" stroke-width="1.1"><path d="M60 18c12 0 21 10 21 24 0 10-5 18-12 22 16 6 27 20 29 42H22c2-22 13-36 29-42-7-4-12-12-12-22 0-14 9-24 21-24z"/></svg></div>
+        <figcaption class="gallery-cap"><span class="tag">Parejas</span><span class="name">Retrato de Pareja</span></figcaption>
+      </figure>
+      <figure class="gallery-item" data-category="mascotas">
+        <div class="gallery-thumb"><svg class="portrait-icon" viewBox="0 0 120 140" fill="none" stroke="currentColor" stroke-width="1.1"><path d="M60 18c12 0 21 10 21 24 0 10-5 18-12 22 16 6 27 20 29 42H22c2-22 13-36 29-42-7-4-12-12-12-22 0-14 9-24 21-24z"/></svg></div>
+        <figcaption class="gallery-cap"><span class="tag">Mascotas</span><span class="name">Fiel Compañero</span></figcaption>
+      </figure>
+      <figure class="gallery-item" data-category="regalos">
+        <div class="gallery-thumb"><svg class="portrait-icon" viewBox="0 0 120 140" fill="none" stroke="currentColor" stroke-width="1.1"><path d="M60 18c12 0 21 10 21 24 0 10-5 18-12 22 16 6 27 20 29 42H22c2-22 13-36 29-42-7-4-12-12-12-22 0-14 9-24 21-24z"/></svg></div>
+        <figcaption class="gallery-cap"><span class="tag">Regalos</span><span class="name">Regalo para el Día de la Madre</span></figcaption>
+      </figure>
+      <figure class="gallery-item" data-category="personas">
+        <div class="gallery-thumb"><svg class="portrait-icon" viewBox="0 0 120 140" fill="none" stroke="currentColor" stroke-width="1.1"><path d="M60 18c12 0 21 10 21 24 0 10-5 18-12 22 16 6 27 20 29 42H22c2-22 13-36 29-42-7-4-12-12-12-22 0-14 9-24 21-24z"/></svg></div>
+        <figcaption class="gallery-cap"><span class="tag">Personas</span><span class="name">Retrato en Blanco y Negro</span></figcaption>
+      </figure>
+      <figure class="gallery-item" data-category="parejas">
+        <div class="gallery-thumb"><svg class="portrait-icon" viewBox="0 0 120 140" fill="none" stroke="currentColor" stroke-width="1.1"><path d="M60 18c12 0 21 10 21 24 0 10-5 18-12 22 16 6 27 20 29 42H22c2-22 13-36 29-42-7-4-12-12-12-22 0-14 9-24 21-24z"/></svg></div>
+        <figcaption class="gallery-cap"><span class="tag">Parejas</span><span class="name">Aniversario en Lápiz</span></figcaption>
+      </figure>
+      <figure class="gallery-item" data-category="mascotas">
+        <div class="gallery-thumb"><svg class="portrait-icon" viewBox="0 0 120 140" fill="none" stroke="currentColor" stroke-width="1.1"><path d="M60 18c12 0 21 10 21 24 0 10-5 18-12 22 16 6 27 20 29 42H22c2-22 13-36 29-42-7-4-12-12-12-22 0-14 9-24 21-24z"/></svg></div>
+        <figcaption class="gallery-cap"><span class="tag">Mascotas</span><span class="name">Retrato de Mascota</span></figcaption>
+      </figure>
+      <figure class="gallery-item" data-category="familias">
+        <div class="gallery-thumb"><svg class="portrait-icon" viewBox="0 0 120 140" fill="none" stroke="currentColor" stroke-width="1.1"><path d="M60 18c12 0 21 10 21 24 0 10-5 18-12 22 16 6 27 20 29 42H22c2-22 13-36 29-42-7-4-12-12-12-22 0-14 9-24 21-24z"/></svg></div>
+        <figcaption class="gallery-cap"><span class="tag">Familias</span><span class="name">Abuelos, Recuerdo Eterno</span></figcaption>
+      </figure>
+      <figure class="gallery-item" data-category="regalos">
+        <div class="gallery-thumb"><svg class="portrait-icon" viewBox="0 0 120 140" fill="none" stroke="currentColor" stroke-width="1.1"><path d="M60 18c12 0 21 10 21 24 0 10-5 18-12 22 16 6 27 20 29 42H22c2-22 13-36 29-42-7-4-12-12-12-22 0-14 9-24 21-24z"/></svg></div>
+        <figcaption class="gallery-cap"><span class="tag">Regalos</span><span class="name">Detalle Personalizado</span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CÓMO ENCARGAR ============ -->
+<section class="process">
+  <div class="container">
+    <div class="section-head center">
+      <p class="eyebrow">Encargos Abiertos</p>
+      <h2 class="section-title">¿Cómo Encargar tu Retrato?</h2>
+    </div>
+    <div class="process-grid">
+      <div class="process-step reveal">
+        <span class="step-number">01</span>
+        <h3 class="step-title">Enviá tus Fotos</h3>
+        <p class="step-desc">Mandame 2 o 3 fotos nítidas por Instagram.</p>
+      </div>
+      <div class="process-step reveal">
+        <span class="step-number">02</span>
+        <h3 class="step-title">Elegimos Juntos</h3>
+        <p class="step-desc">Te ayudo a elegir la mejor referencia para el resultado ideal.</p>
+      </div>
+      <div class="process-step reveal">
+        <span class="step-number">03</span>
+        <h3 class="step-title">Creo tu Retrato</h3>
+        <p class="step-desc">Realizo tu obra 100% a mano, con dedicación y paciencia.</p>
+      </div>
+      <div class="process-step reveal">
+        <span class="step-number">04</span>
+        <h3 class="step-title">Lo Recibís en Casa</h3>
+        <p class="step-desc">Envío a todo el país y al exterior, embalado con cuidado.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TIENDA ============ -->
+<section class="shop" id="tienda">
+  <div class="container">
+    <div class="section-head center">
+      <p class="eyebrow">Tienda</p>
+      <h2 class="section-title">Elegí el Formato Ideal</h2>
+      <p class="section-lede">Muy pronto vas a poder comprar directamente desde acá. Mientras tanto, escribime por Instagram para coordinar tu encargo.</p>
+    </div>
+    <div class="shop-grid">
+      <!-- Botones "Consultar por DM": reemplazar href por el link real de cada producto en WooCommerce cuando la tienda esté online -->
+      <div class="shop-card">
+        <span class="shop-tag">Personas</span>
+        <h3 class="shop-title">Retrato Individual</h3>
+        <p class="shop-desc">Un rostro, una historia. El punto de partida ideal.</p>
+        <div class="shop-meta">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l5 5v15H6V2z"/><path d="M15 2v5h5"/></svg>
+          A4 · A3
+        </div>
+        <a href="https://instagram.com/juanmiguelcapurro" target="_blank" rel="noopener" class="shop-cta" data-shop-link="pendiente-woocommerce">Consultar por DM
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+      <div class="shop-card">
+        <span class="shop-tag">Parejas y Familias</span>
+        <h3 class="shop-title">Retrato Grupal</h3>
+        <p class="shop-desc">Dos o más personas reunidas en una sola pieza.</p>
+        <div class="shop-meta">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l5 5v15H6V2z"/><path d="M15 2v5h5"/></svg>
+          A3 o superior
+        </div>
+        <a href="https://instagram.com/juanmiguelcapurro" target="_blank" rel="noopener" class="shop-cta" data-shop-link="pendiente-woocommerce">Consultar por DM
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+      <div class="shop-card">
+        <span class="shop-tag">Mascotas</span>
+        <h3 class="shop-title">Retrato de Mascota</h3>
+        <p class="shop-desc">Tu compañero de cuatro patas, inmortalizado a lápiz.</p>
+        <div class="shop-meta">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l5 5v15H6V2z"/><path d="M15 2v5h5"/></svg>
+          A4 · A3
+        </div>
+        <a href="https://instagram.com/juanmiguelcapurro" target="_blank" rel="noopener" class="shop-cta" data-shop-link="pendiente-woocommerce">Consultar por DM
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+      <div class="shop-card">
+        <span class="shop-tag">Regalos</span>
+        <h3 class="shop-title">Regalo Personalizado</h3>
+        <p class="shop-desc">Para esa fecha especial que merece algo único.</p>
+        <div class="shop-meta">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l5 5v15H6V2z"/><path d="M15 2v5h5"/></svg>
+          A4 · A3 o superior
+        </div>
+        <a href="https://instagram.com/juanmiguelcapurro" target="_blank" rel="noopener" class="shop-cta" data-shop-link="pendiente-woocommerce">Consultar por DM
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </div>
+    <p class="shop-note">¿Ya tenés tu tienda de WooCommerce lista? Reemplazá cada enlace "Consultar por DM" por el link directo al producto.</p>
+  </div>
+</section>
+
+<!-- ============ CTA / CONTACTO ============ -->
+<section class="contact-cta" id="contacto">
+  <div class="container">
+    <h2 class="cta-title">Encargos Abiertos</h2>
+    <p class="cta-sub">Enviame 2 o 3 fotos nítidas por Instagram y te ayudo a elegir la mejor referencia para lograr el mejor resultado posible.</p>
+    <a href="https://instagram.com/juanmiguelcapurro" target="_blank" rel="noopener" class="btn btn-gold">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".6" fill="currentColor" stroke="none"/></svg>
+      Escribime por Instagram
+    </a>
+  </div>
+</section>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <a href="#inicio" class="logo">Juan Miguel Capurro</a>
+      <p class="footer-tagline">Arte realista tradicional, hecho con paciencia, dedicación y pasión. Bahía Blanca, Argentina.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Navegación</h4>
+      <ul>
+        <li><a href="#sobre-mi">Sobre Mí</a></li>
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#galeria">Galería</a></li>
+        <li><a href="#tienda">Tienda</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contacto</h4>
+      <ul>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".6" fill="currentColor" stroke="none"/></svg><a href="https://instagram.com/juanmiguelcapurro" target="_blank" rel="noopener">@juanmiguelcapurro</a></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2c2.8 2.8 4.2 6.3 4.2 10s-1.4 7.2-4.2 10c-2.8-2.8-4.2-6.3-4.2-10S9.2 4.8 12 2z"/></svg>Envíos a todo el país y al exterior</li>
+      </ul>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <span>© <span id="year"></span> Juan Miguel Capurro. Todos los derechos reservados.</span>
+    <span>Bahía Blanca, Argentina</span>
+  </div>
+</footer>
+
+<!-- ============ LIGHTBOX ============ -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightboxClose" aria-label="Cerrar">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 4l16 16M20 4L4 20"/></svg>
+  </button>
+  <button class="lightbox-prev" id="lightboxPrev" aria-label="Anterior">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+  </button>
+  <button class="lightbox-next" id="lightboxNext" aria-label="Siguiente">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+  </button>
+  <div class="lightbox-content">
+    <div class="lightbox-thumb" id="lightboxThumb">
+      <svg class="portrait-icon" viewBox="0 0 120 140" fill="none" stroke="currentColor" stroke-width="1.1"><path d="M60 18c12 0 21 10 21 24 0 10-5 18-12 22 16 6 27 20 29 42H22c2-22 13-36 29-42-7-4-12-12-12-22 0-14 9-24 21-24z"/></svg>
+    </div>
+    <div class="lightbox-info">
+      <span class="tag" id="lightboxTag"></span>
+      <p class="name" id="lightboxName"></p>
+    </div>
+  </div>
+</div>
+
+<!-- ============ BOTÓN FLOTANTE INSTAGRAM ============ -->
+<a href="https://instagram.com/juanmiguelcapurro" target="_blank" rel="noopener" class="float-ig" id="floatIg" aria-label="Escribime por Instagram">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".6" fill="currentColor" stroke="none"/></svg>
+</a>
+
+<script>
+// ---------- Header al hacer scroll ----------
+const header = document.getElementById('siteHeader');
+const floatIg = document.getElementById('floatIg');
+window.addEventListener('scroll', () => {
+  const scrolled = window.scrollY > 40;
+  header.classList.toggle('scrolled', scrolled);
+  floatIg.classList.toggle('show', window.scrollY > 500);
+}, { passive: true });
+
+// ---------- Menú móvil ----------
+const navToggle = document.getElementById('navToggle');
+const navLinks = document.getElementById('navLinks');
+navToggle.addEventListener('click', () => {
+  const isOpen = navLinks.classList.toggle('open');
+  navToggle.classList.toggle('active', isOpen);
+  navToggle.setAttribute('aria-expanded', isOpen);
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+});
+navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+  navLinks.classList.remove('open');
+  navToggle.classList.remove('active');
+  navToggle.setAttribute('aria-expanded', 'false');
+  document.body.style.overflow = '';
+}));
+
+// ---------- Reveal on scroll ----------
+const revealEls = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('is-visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15 });
+revealEls.forEach(el => revealObserver.observe(el));
+
+// ---------- Trazos dibujados a mano ----------
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.querySelector('.hero-ring path')?.classList.add('draw');
+  }, 500);
+});
+const strokeObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('draw');
+      strokeObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.6 });
+document.querySelectorAll('.callout-underline path').forEach(el => strokeObserver.observe(el));
+
+// ---------- Filtro de galería ----------
+const filterBtns = document.querySelectorAll('.filter-btn');
+const galleryItems = document.querySelectorAll('.gallery-item');
+filterBtns.forEach(btn => btn.addEventListener('click', () => {
+  filterBtns.forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const filter = btn.dataset.filter;
+  galleryItems.forEach(item => {
+    const match = filter === 'todos' || item.dataset.category === filter;
+    item.style.display = match ? '' : 'none';
+  });
+}));
+
+// ---------- Lightbox ----------
+const lightbox = document.getElementById('lightbox');
+const lightboxTag = document.getElementById('lightboxTag');
+const lightboxName = document.getElementById('lightboxName');
+const galleryArr = Array.from(galleryItems);
+let currentIndex = 0;
+
+function updateLightbox(index) {
+  const item = galleryArr[index];
+  const tag = item.querySelector('.tag').textContent;
+  const name = item.querySelector('.name').textContent;
+  lightboxTag.textContent = tag;
+  lightboxName.textContent = name;
+}
+function openLightbox(index) {
+  currentIndex = index;
+  updateLightbox(currentIndex);
+  lightbox.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  lightbox.classList.remove('open');
+  document.body.style.overflow = '';
+}
+galleryArr.forEach((item, index) => {
+  item.querySelector('.gallery-thumb').addEventListener('click', () => openLightbox(index));
+});
+document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+document.getElementById('lightboxNext').addEventListener('click', () => {
+  currentIndex = (currentIndex + 1) % galleryArr.length;
+  updateLightbox(currentIndex);
+});
+document.getElementById('lightboxPrev').addEventListener('click', () => {
+  currentIndex = (currentIndex - 1 + galleryArr.length) % galleryArr.length;
+  updateLightbox(currentIndex);
+});
+lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+document.addEventListener('keydown', (e) => {
+  if (!lightbox.classList.contains('open')) return;
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowRight') document.getElementById('lightboxNext').click();
+  if (e.key === 'ArrowLeft') document.getElementById('lightboxPrev').click();
+});
+
+// ---------- Año en footer ----------
+document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
